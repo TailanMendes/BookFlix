@@ -1,4 +1,4 @@
-# Django settings for WebService project.
+# Django settings for webservice project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -83,7 +83,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'y$&kvso=+(3%)6-!e(s!qys*k1hnt@8v-ve0x00@jywu0d^d0t'
+SECRET_KEY = '&q!78+*u*@ri%op@(9(4eb=^dwy6+f#4a6fszl(5cy%ue+%^@i'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -102,10 +102,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'WebService.urls'
+ROOT_URLCONF = 'webservice.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'WebService.wsgi.application'
+WSGI_APPLICATION = 'webservice.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
