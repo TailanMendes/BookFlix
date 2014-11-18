@@ -1,0 +1,11 @@
+INSERT INTO autor VALUES (NULL,'António José da Silva'),
+(NULL,'Guimarães Rosa'),
+(NULL,'Graciliano Ramos'),
+(NULL,'Machado de Assis'),
+(NULL,'José de Alencar'),
+(NULL,'Jorge Amado'),
+(NULL,'Alfredo Bosi'),
+(NULL,'Marcelo Cassaro'),
+(NULL,'Mario Schmidt'),
+(NULL,'Alberto Dines'),
+(NULL,'W.Shakespeare');
