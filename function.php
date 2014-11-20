@@ -1,41 +1,190 @@
 <?php
 
-function cadUser($param){
-	//print_r($param)
-	$array = array();
-	$i=0;
-	while($i<2){
-		$array[$i]=$param[$i];
-		$i=$i+1;
-	}
-	$recebido = 'Recebido';
+/**
+ * Funções referente ao Manter do User
+ **/
+/**
+ * função usada para cadastrar o usuário
+ * @param array com o formato do dado tipo User, definido no arquivo dataDefinition.php
+ * @return String contendo a informação se o cadastro foi realizado com sucesso
+ */
+function insertUser($user){
+	
 	return $array;
-	/*
-	 foreach($param as $inarray)
-	 {
-	$retarray[] = array(
-			"codUser" => $inarray['codUser'],
-			"nomeLivro"=>$inarray['nomeLivro'],
-			"nomeLivro"=>$inarray['codUser'],
-
-	);
-	}
-	return $retarray[0];
-	*/
-
+	
 }
 
 
-function cadAutor($autor){
-	$recebido = 'Recebido';
+/**
+ * função usada para pesquisar o usuário ou retornar um array contendo vários usuários (utilizado normalmente para atualizar o banco local do website ou app)
+ * @param array com o formato do dado tipo Search, definido no arquivo dataDefinition.php
+ * @return array do tipo UserArray contendo um ou mais usuários
+ * 
+ * caso o parametro passado seja NULL a função irá retornar todos os usuários contidos no BD do WebService
+ */
+function getUser($pesquisa){
+	
 	return $recebido;
 }
 
 
-function cadGenero($genero){
-	$recebido = 'Recebido';
+/**
+ * função usada para alterar dados de um usuário especifico
+ * @param array com o formato do dado tipo User, definido no arquivo dataDefinition.php
+ * @return String confirmando se a alteração foi realizada com sucesso 
+ */
+function alterUser($user){
+
 	return $recebido;
 }
+
+/**
+ * função usada para deletar um usuário especifico
+ * @param array com o formato do dado tipo User, definido no arquivo dataDefinition.php
+ * @return String confirmando se o delete foi realizada com sucesso
+ */
+
+function deleteUser($user){
+
+	return $recebido;
+}
+
+
+
+/**
+ * Funções referente ao Manter do Autor
+ **/
+/**
+ * função usada para cadastrar o Autor
+ * @param array com o formato do dado tipo Autor, definido no arquivo dataDefinition.php
+ * @return String contendo a informação se o Autor foi realizado com sucesso
+ */
+function insertAutor($autor){
+	
+	return $recebido;
+}
+
+/**
+ * função usada para pesquisar o Autor ou retornar um array contendo vários Autores (utilizado normalmente para atualizar o banco local do website ou app)
+ * @param array com o formato do dado tipo Search, definido no arquivo dataDefinition.php
+ * @return array do tipo AutorArray contendo um ou mais Autor
+ *
+ * caso o parametro passado seja NULL a função irá retornar todos os autores contidos no BD do WebService
+ */
+function getAutor($pesquisa){
+
+	return $recebido;
+}
+/**
+ * função usada para alterar dados de um Autor especifico
+ * @param array com o formato do dado tipo Autor, definido no arquivo dataDefinition.php
+ * @return String confirmando se a alteração foi realizada com sucesso
+ */
+function alterAutor($autor){
+
+	return $recebido;
+}
+/**
+ * função usada para deletar um Autor especifico
+ * @param array com o formato do dado tipo Autor, definido no arquivo dataDefinition.php
+ * @return String confirmando se o delete foi realizada com sucesso
+ */
+function deleteAutor($autor){
+
+	return $recebido;
+}
+
+
+/**
+ * Funções referente ao Manter do Genero
+ **/
+
+/**
+ * função usada para cadastrar um Genero
+ * @param array com o formato do dado tipo Genero, definido no arquivo dataDefinition.php
+ * @return String contendo a informação se o Genero foi realizado com sucesso
+ */
+function insertGenero($genero){
+	
+	return $recebido;
+}
+/**
+ * função usada para pesquisar o Genero ou retornar um array contendo vários Generos (utilizado normalmente para atualizar o banco local do website ou app)
+ * @param array com o formato do dado tipo Search, definido no arquivo dataDefinition.php
+ * @return array do tipo GeneroArray contendo um ou mais Genero
+ *
+ * caso o parametro passado seja NULL a função irá retornar todos os generos contidos no BD do WebService
+ */
+function getGenero($pesquisa){
+
+	return $recebido;
+}
+
+/**
+ * função usada para alterar dados de um Genero especifico
+ * @param array com o formato do dado tipo Genero, definido no arquivo dataDefinition.php
+ * @return String confirmando se a alteração foi realizada com sucesso
+ */
+function alterGenero($genero){
+
+	return $recebido;
+}
+/**
+ * função usada para deletar um Genero especifico
+ * @param array com o formato do dado tipo Genero, definido no arquivo dataDefinition.php
+ * @return String confirmando se o delete foi realizada com sucesso
+ */
+function deleteGenero($genero){
+
+	return $recebido;
+}
+
+/**
+ * Funções referente ao Manter do Book
+ **/
+
+/**
+ * função usada para cadastrar um Book
+ * @param array com o formato do dado tipo Book, definido no arquivo dataDefinition.php
+ * @return String contendo a informação se o Book foi realizado com sucesso
+ */
+function insertBook($book){
+
+	return $recebido;
+}
+/**
+ * função usada para pesquisar o Genero ou retornar um array contendo vários Generos (utilizado normalmente para atualizar o banco local do website ou app)
+ * @param array com o formato do dado tipo Search, definido no arquivo dataDefinition.php
+ * @return array do tipo BookArray contendo um ou mais Genero
+ *
+ * caso o parametro passado seja NULL a função irá retornar todos os usuários contidos no BD do WebService
+ */
+function getBook($pequisa){
+
+	return $recebido;
+}
+
+/**
+ * função usada para alterar dados de um Book especifico
+ * @param array com o formato do dado tipo Book, definido no arquivo dataDefinition.php
+ * @return String confirmando se a alteração foi realizada com sucesso
+ */
+function alterBook($book){
+
+	return $recebido;
+}
+
+/**
+ * função usada para deletar um Book especifico
+ * @param array com o formato do dado tipo Book, definido no arquivo dataDefinition.php
+ * @return String confirmando se o delete foi realizada com sucesso
+ */
+function deletBook($book){
+
+	return $recebido;
+}
+
+
 
 
 

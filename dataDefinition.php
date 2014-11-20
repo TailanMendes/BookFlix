@@ -17,7 +17,7 @@
  * define o tipo de dado User, onde o mesmo é um array contendo cinco outros array
  * como mostrado:
  * User -> codUser->"<codigo do Usuário>"
- *		para a funçao de cadLivro esse campo deve ser NULL, pois, o BD gerará automáticamente 
+ *		para a funçao de insertUser esse campo deve ser NULL, pois, o BD gerará automáticamente 
  * 		esse campo
  * User -> nomeUser->"<nome a ser cadastrado>"
  * User -> emailUser->"<email a ser cadastrado>"
@@ -63,7 +63,7 @@ $server->wsdl->addComplexType(
  * como mostrado:
  *
  * Book -> codLivro->"<codigo do livro>"
- * 		para a funçao de cadLivro esse campo deve ser NULL, pois, o BD gerará automáticamente 
+ * 		para a funçao de insertLivro esse campo deve ser NULL, pois, o BD gerará automáticamente 
  * 		esse campo
  * Book -> nomeLivro->"<nome a ser cadastrado>"
  * Book -> codAutor->"<codigo do campo autcodigo da tabela autor do banco de dados, que refere-se ao autor do livro>"
@@ -111,7 +111,7 @@ $server->wsdl->addComplexType(
  * como mostrado:
  *
  * Genero -> codGenero->"<codigo do Genero>"
- * 		para a funçao de cadGenero esse campo deve ser NULL, pois, o BD gerará automáticamente
+ * 		para a funçao de insertGenero esse campo deve ser NULL, pois, o BD gerará automáticamente
  * 		esse campo
  * Genero-> nomeGenero->"<nome a ser cadastrado>"
  *
@@ -148,7 +148,7 @@ $server->wsdl->addComplexType(
  * como mostrado:
  *
  * Autor -> codAutor->"<codigo do Autor>"
- * 		para a funçao de cadGenero esse campo deve ser NULL, pois, o BD gerará automáticamente
+ * 		para a funçao de insertGenero esse campo deve ser NULL, pois, o BD gerará automáticamente
  * 		esse campo
  *  Autor-> nomeAutor->"<nome a ser cadastrado>"
  *
@@ -177,7 +177,34 @@ $server->wsdl->addComplexType(
 		),
 		'tns:Autor'
 );
-
+/** data Search
+ * define o tipo de dado Serach, onde o mesmo é um array contendo quatro outros array
+ * como mostrado:
+ * Search -> codigo->"<caso preenchido, retorna a informacao referente a este codigo>"
+ * Search -> nomeAprox->"<nome a ser pesquisado no BD, retornará nomes que contenham esse campo como substring>"
+ * Search-> nomeExato->"<nome exato que será pesquisado no BD>"
+ * Search-> limite->"<limit de resultado retornados pela busca>"
+ * 
+ * 
+ * regras:
+ * caso o campo 'codigo' seja preenchido, somente o campo 'limite' poderá ou não ser preenchido os outros dois não devem conter informação
+ * Somente um dos campos referente a nome deve ser preenchido(nomeAprox,nomeExato), caso os dois sejam preenchidos e enviado a solicitação 
+ * retornará uma mensagem de erro.
+ * o campo 'limite' é aconselhável que seja preenchido
+ *
+ * */
+$server->wsdl->addComplexType('Search',//Nome do novo tipo de dado
+		'complexType',//categoria do tipo de dado
+		'struct',//forma
+		'all',//
+		'',
+		array(
+				'codigo'=>array('name'=>'codigo','type'=>'xsd:int'),
+				'nomeAprox'=>array('name'=>'nomeAprox','type'=>'xsd:string'),
+				'nomeExato'=>array('name'=>'nomeExato','type'=>'xsd:string'),
+				'limite'=>array('name'=>'limite','type'=>'xsd:int'),
+		)
+);
 
 
 
