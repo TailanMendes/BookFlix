@@ -13,3 +13,9 @@ BookFlix WebService - PHP
  
  A validação das regras deve ser realizada na aplicação que estará utilizando o webservice,por exemplo,
  SITE consome um cliente com o webservice BookFlix, o site deverá tratar os dados conforme as regras.
+ 
+ As regras do banco de dados devem ser obecidas.Atributos NOT NULL, por exemplo.
+ 
+ Alterações:
+ ----------------
+ **Campo 'limite' do tipo de dado Search está depreciado para uso sozinho, somente permitido em conjunto com ou o campo 'nomeAprox' ou 'nomeExato'

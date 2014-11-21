@@ -32,11 +32,11 @@ $server->wsdl->addComplexType('User',//Nome do novo tipo de dado
 		'all',//
 		'',
 		array(
-				'codUser'=>array('name'=>'codUser','type'=>'xsd:int'),
-				'nomeUser'=>array('name'=>'nomeUser','type'=>'xsd:string'),
-				'emailUser'=>array('name'=>'emailUser','type'=>'xsd:string'),
-				'telefoneUser'=>array('name'=>'telefoneUser','type'=>'xsd:string'),
-				'senhaUser'=>array('name'=>'senhaUser','type'=>'xsd:string'),
+				'usucodigo'=>array('name'=>'usucodigo','type'=>'xsd:int'),
+				'usunome'=>array('name'=>'usunome','type'=>'xsd:string'),
+				'usuemail'=>array('name'=>'usuemail','type'=>'xsd:string'),
+				'ususenha'=>array('name'=>'ususenha','type'=>'xsd:string'),
+				'usutelefone'=>array('name'=>'usutelefone','type'=>'xsd:int'),
 		)
 );
 
@@ -79,13 +79,13 @@ $server->wsdl->addComplexType('Book',//Nome do novo tipo de dado
 		'all',//
 		'',
 		array(
-				'codLivro'=>array('name'=>'codLivro','type'=>'xsd:int'),
-				'nomeLivro'=>array('name'=>'nomeLivro','type'=>'xsd:string'),
-				'codAutor'=>array('name'=>'codAutor','type'=>'xsd:int'),
-				'codGenero'=>array('name'=>'codGenero','type'=>'xsd:int'),
-				'anopub'=>array('name'=>'anopub','type'=>'xsd:string'),
-				'arquivo'=>array('name'=>'arquivo','type'=>'xsd:string'),
-				'thumb'=>array('name'=>'thumb','type'=>'xsd:string'),
+				'livcodigo'=>array('name'=>'livcodigo','type'=>'xsd:int'),
+				'livnome'=>array('name'=>'livnome','type'=>'xsd:string'),
+				'livautor'=>array('name'=>'livautor','type'=>'xsd:int'),
+				'livgencodigo'=>array('name'=>'livgencodigo','type'=>'xsd:int'),
+				'livanopublicacao'=>array('name'=>'livanopublicacao','type'=>'xsd:string'),
+				'livrlocalsalvo'=>array('name'=>'livrlocalsalvo','type'=>'xsd:string'),
+				'livthumb'=>array('name'=>'livthumb','type'=>'xsd:string'),
 		)
 );
 
@@ -122,8 +122,8 @@ $server->wsdl->addComplexType('Genero',//Nome do novo tipo de dado
 		'all',//
 		'',
 		array(
-				'codGenero'=>array('name'=>'codGenero','type'=>'xsd:int'),
-				'nomeGenero'=>array('name'=>'nomeGenero','type'=>'xsd:string'),
+				'gencodigo'=>array('name'=>'gencodigo','type'=>'xsd:int'),
+				'gennome'=>array('name'=>'gennome','type'=>'xsd:string'),
 		)
 );
 
@@ -159,8 +159,8 @@ $server->wsdl->addComplexType('Autor',//Nome do novo tipo de dado
 		'all',//
 		'',
 		array(
-				'codAutor'=>array('name'=>'codAutor','type'=>'xsd:int'),
-				'nomeAutor'=>array('name'=>'nomeAutor','type'=>'xsd:string'),
+				'autcodigo'=>array('name'=>'autcodigo','type'=>'xsd:int'),
+				'autnome'=>array('name'=>'autnome','type'=>'xsd:string'),
 		)
 );
 
@@ -178,7 +178,7 @@ $server->wsdl->addComplexType(
 		'tns:Autor'
 );
 /** data Search
- * define o tipo de dado Serach, onde o mesmo é um array contendo quatro outros array
+ * define o tipo de dado Search, onde o mesmo é um array contendo quatro outros array
  * como mostrado:
  * Search -> codigo->"<caso preenchido, retorna a informacao referente a este codigo>"
  * Search -> nomeAprox->"<nome a ser pesquisado no BD, retornará nomes que contenham esse campo como substring>"
@@ -206,6 +206,36 @@ $server->wsdl->addComplexType('Search',//Nome do novo tipo de dado
 		)
 );
 
+/** data LivroLido
+ * define o tipo de dado LivroLido, onde o mesmo é um array contendo dois outros array
+ * como mostrado:
+ * Search -> usucodigo->"<codigo do usuario>"
+ * Search -> livcodigo->"<codigo do livro>"
+ *
+ * */
+$server->wsdl->addComplexType('LivroLido',//Nome do novo tipo de dado
+		'complexType',//categoria do tipo de dado
+		'struct',//forma
+		'all',//
+		'',
+		array(
+				'boolidusucodigo'=>array('name'=>'usucodigo','type'=>'xsd:int'),
+				'boollidlivcodigo'=>array('name'=>'livcodigo','type'=>'xsd:int'),
+		)
+);
+/* data LivroLidoArray, mesma funçao que o data LivroLido mas contendo mais de um registro*/
+$server->wsdl->addComplexType(
+		'LivroLidoArray',
+		'complexType',
+		'array',
+		'',
+		'SOAP-ENC:Array',
+		array(),
+		array(
+				array('ref'=>'SOAP-ENC:arrayType','wsdl:arrayType'=>'tns:LivroLido[]')
+		),
+		'tns:LivroLido'
+);
 
 
 ?>

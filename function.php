@@ -1,5 +1,6 @@
 <?php
 
+require_once ('conexaoBD.php');
 /**
  * Funções referente ao Manter do User
  **/
@@ -9,8 +10,16 @@
  * @return String contendo a informação se o cadastro foi realizado com sucesso
  */
 function insertUser($user){
+	extract($user);
+	if(!$usutelefone)
+		$usutelefone="NULL";
+	$inserir = "INSERT INTO usuario VALUES (NULL,'$usunome','$usuemail','$ususenha',$usutelefone)";
+	$resultado = inserir($inserir);
+	$retorno = "Usuário não cadastrado";
+	if($resultado == 1)
+		$retorno = "Usuário $usunome cadastrado com sucesso";
 	
-	return $array;
+	return $retorno;
 	
 }
 
@@ -22,9 +31,22 @@ function insertUser($user){
  * 
  * caso o parametro passado seja NULL a função irá retornar todos os usuários contidos no BD do WebService
  */
-function getUser($pesquisa){
+function getUser($Search){
+	$consulta=NULL;
+	if($Search['codigo'])
+		$consulta = "SELECT * FROM usuario WHERE usucodigo = ".$Search['codigo'];
+	else if($Search['nomeAprox'] && !$Search['nomeExato'])
+		$consulta = "SELECT * FROM usuario WHERE usunome LIKE '%".$Search['nomeAprox']."%'";
+	else if(!$Search['nomeAprox'] && $Search['nomeExato'])
+		$consulta = "SELECT * FROM usuario WHERE usunome = '".$Search['nomeExato']."'";
+	else
+		$retorno = NULL;
+	//$retorno = array();
+	if($consulta)
+		$retorno = recuperar($consulta);
 	
-	return $recebido;
+	return $retorno;
+	
 }
 
 
@@ -34,8 +56,19 @@ function getUser($pesquisa){
  * @return String confirmando se a alteração foi realizada com sucesso 
  */
 function alterUser($user){
-
-	return $recebido;
+	extract($user);
+	$resultado = "Usuário $usunome não alterado";
+	$consulta;
+	if(!$usutelefone)
+		$usutelefone="NULL";
+	if(!$usucodigo)
+		$consulta = "UPDATE usuario SET usunome = '$usunome',usuemail='$usuemail',ususenha='$ususenha',usutelefone=$usutelefone WHERE usunome = '$usunome'";
+	else
+		$consulta = "UPDATE usuario SET usunome = '$usunome',usuemail='$usuemail',ususenha='$ususenha',usutelefone=$usutelefone WHERE usucodigo = $usucodigo";
+	$retorno = alterar($consulta);
+	if($retorno)
+		$resultado = "Usuário $usunome alterado com sucesso";
+	return $resultado;
 }
 
 /**
@@ -45,8 +78,20 @@ function alterUser($user){
  */
 
 function deleteUser($user){
-
-	return $recebido;
+	
+	extract($user);
+	$resultado = "Usuário $usunome não excluído";
+	$consulta;
+	if(!$usucodigo)
+		$consulta = "DELETE FROM usuario WHERE usunome = '$usunome'";
+	else if($usucodigo)
+		$consulta = "DELETE FROM usuario WHERE usucodigo = $usucodigo";
+		
+	$retorno = alterar($consulta);
+	if($retorno)
+		$resultado = "Usuário $usunome excluído com sucesso";
+	return $resultado;
+	
 }
 
 
@@ -60,8 +105,10 @@ function deleteUser($user){
  * @return String contendo a informação se o Autor foi realizado com sucesso
  */
 function insertAutor($autor){
-	
-	return $recebido;
+	$nome = $autor['nomeAutor'];
+	$inserir = "INSERT INTO autor VALUES (NULL,'$nome')";
+	$resultado = inserir($inserir);
+	return $resultado;
 }
 
 /**
@@ -71,9 +118,22 @@ function insertAutor($autor){
  *
  * caso o parametro passado seja NULL a função irá retornar todos os autores contidos no BD do WebService
  */
-function getAutor($pesquisa){
-
-	return $recebido;
+function getAutor($Search){
+	$consulta=NULL;
+	$retorno=NULL;
+	if($Search['codigo'])
+		$consulta = "SELECT * FROM autor WHERE autcodigo = ".$Search['codigo'];
+	else if($Search['nomeAprox'] && !$Search['nomeExato'])
+		$consulta = "SELECT * FROM autor WHERE autnome LIKE '%".$Search['nomeAprox']."%'";
+	else if(!$Search['nomeAprox'] && $Search['nomeExato'])
+		$consulta = "SELECT * FROM autor WHERE autnome = '".$Search['nomeExato']."'";
+	else 
+		$retorno = NULL;
+		//$retorno = array();
+	if($consulta)	
+		$retorno = recuperar($consulta);
+	
+	return $retorno;
 }
 /**
  * função usada para alterar dados de um Autor especifico
@@ -81,13 +141,15 @@ function getAutor($pesquisa){
  * @return String confirmando se a alteração foi realizada com sucesso
  */
 function alterAutor($autor){
-
+	
+	
 	return $recebido;
 }
 /**
  * função usada para deletar um Autor especifico
  * @param array com o formato do dado tipo Autor, definido no arquivo dataDefinition.php
- * @return String confirmando se o delete foi realizada com sucesso
+ * @return String confirmando se o delete foi realizada com sucesso,
+ * 
  */
 function deleteAutor($autor){
 
@@ -115,9 +177,22 @@ function insertGenero($genero){
  *
  * caso o parametro passado seja NULL a função irá retornar todos os generos contidos no BD do WebService
  */
-function getGenero($pesquisa){
-
-	return $recebido;
+function getGenero($Search){
+	$consulta=NULL;
+	if($Search['codigo'])
+		$consulta = "SELECT * FROM genero WHERE gencodigo = ".$Search['codigo'];
+	else if($Search['nomeAprox'] && !$Search['nomeExato'])
+		$consulta = "SELECT * FROM genero WHERE gennome LIKE '%".$Search['nomeAprox']."%'";
+	else if(!$Search['nomeAprox'] && $Search['nomeExato'])
+		$consulta = "SELECT * FROM genero WHERE gennome = '".$Search['nomeExato']."'";
+	else
+		$retorno = NULL;
+	//$retorno = array();
+	if($consulta)
+		$retorno = recuperar($consulta);
+	
+	return $retorno;
+	
 }
 
 /**
@@ -135,7 +210,7 @@ function alterGenero($genero){
  * @return String confirmando se o delete foi realizada com sucesso
  */
 function deleteGenero($genero){
-
+    
 	return $recebido;
 }
 
@@ -155,13 +230,27 @@ function insertBook($book){
 /**
  * função usada para pesquisar o Genero ou retornar um array contendo vários Generos (utilizado normalmente para atualizar o banco local do website ou app)
  * @param array com o formato do dado tipo Search, definido no arquivo dataDefinition.php
- * @return array do tipo BookArray contendo um ou mais Genero
+ * @return array do tipo BookArray contendo um ou mais Book,lembrando que o livro e a capa do livro serão enviados codificados em base64
  *
  * caso o parametro passado seja NULL a função irá retornar todos os usuários contidos no BD do WebService
  */
-function getBook($pequisa){
-
-	return $recebido;
+function getBook($Search){
+	$consulta=NULL;
+	
+	if($Search['codigo'])
+		$consulta = "SELECT * FROM livro WHERE livcodigo = ".$Search['codigo'];
+	else if($Search['nomeAprox'] && !$Search['nomeExato'])
+		$consulta = "SELECT * FROM livro WHERE livnome LIKE '%".$Search['nomeAprox']."%'";
+	else if(!$Search['nomeAprox'] && $Search['nomeExato'])
+		$consulta = "SELECT * FROM livro WHERE livnome = '".$Search['nomeExato']."'";
+	else
+		$retorno = NULL;
+	//$retorno = array();
+	if($consulta)
+		$retorno = recuperar($consulta);
+	
+	return $retorno;
+	
 }
 
 /**
@@ -185,6 +274,76 @@ function deletBook($book){
 }
 
 
+/**
+ *função usada para inserir o relacionamento de LIVRO LIDO no banco de dados
+ *@param LivroLido, contendo o usucodigo e livcodigo.
+ *@return String informando se for cadastrado com sucesso.
+ *
+ **/
+function insertLivroLido($LivroLido){
+	
+}
+/**
+ *função usada para recuper um relacionamento de LIVRO LIDO,existente no banco de dados
+ *@param LivroLido, contendo o usucodigo e livcodigo.
+ *@return LivroLidoArray contendo a informação do relacionamento.
+ *
+ **/
+function getLivroLido($LivroLido){
+	$consulta=NULL;
+	
+	if($LivroLido['boolidusucodigo'] && !$LivroLido['boolidlivcodigo'])
+		$consulta = "SELECT * FROM booklido WHERE boolidusucodigo = ".$LivroLido['boolidusucodigo'];
+	else if($LivroLido['boolidlivcodigo'] && !$LivroLido['boolidusucodigo'])
+		$consulta = "SELECT * FROM booklido WHERE boolidlivcodigo =".$LivroLido['boolidlivcodigo'];
+	/* else if($LivroLido['boolidusucodigo'] && $LivroLido['boolidlivcodigo'])
+		$consulta = "SELECT * FROM booklido WHERE boolidlivcodigo = ".$Search['boolidlivcodigo']." and boolidusucodigo = ".; */
+	else
+		$retorno = NULL;
+	//$retorno = array();
+	if($consulta)
+		$retorno = recuperar($consulta);
+	
+	return $retorno;
+}
+/**
+ *função usada para deletar um relacionamento de LIVRO LIDO,existente no banco de dados
+ *@param LivroLidoArray, contendo o usucodigo e livcodigo.
+ *@return String informando se o delete foi realizado com sucesso.
+ *
+ **/
+function deleteLivroLido($LivroLido){
+
+}
+/**
+ * funcoes genericas para ADD,ALTER,DEL os dados
+ * */
+function inserir($sqlCommand){
+	//include ('conexaoBD.php');
+	$resultado = mysql_query($sqlCommand);
+	return $resultado;
+}
+
+function alterar($sqlCommand){
+	//include ('conexaoBD.php');
+	$resultado = mysql_query($sqlCommand);
+	return $resultado;
+}
+function deletar($sqlCommand){
+	//include ('conexaoBD.php');
+	$resultado = mysql_query($sqlCommand);
+	return $estado;
+}
+function recuperar($consulta){
+	//include ('conexaoBD.php');
+	$resultado = mysql_query($consulta);
+	$retornoconsulta;
+	while ($row = mysql_fetch_assoc($resultado)) {
+		$retornoconsulta[] = $row;
+		//print_r ($row);
+	}
+	return $retornoconsulta;
+}
 
 
 
