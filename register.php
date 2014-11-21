@@ -44,7 +44,7 @@ $server->register('deleteUser',
 		array('user'=>'tns:User'),
 		array('return'=>'xsd:string'),
 		'urn:server.deleteUser',
-		'urn:server.deleteUser#xdeleteUser',
+		'urn:server.deleteUser#deleteUser',
 		'rpc',
 		'encode',
 		'return string informando se o usuário foi deletado'
@@ -90,11 +90,12 @@ $server->register('deleteAutor',
 		array('autor'=>'tns:Autor'),
 		array('return'=>'xsd:string'),
 		'urn:server.deleteAutor',
-		'urn:server.deleteAutor#xdeleteAutor',
+		'urn:server.deleteAutor#deleteAutor',
 		'rpc',
 		'encode',
 		'return string informando se o Autor foi deletado'
 );
+
 
 
 /**
@@ -135,7 +136,7 @@ $server->register('deleteGenero',
 		array('genero'=>'tns:Genero'),
 		array('return'=>'xsd:string'),
 		'urn:server.deleteGenero',
-		'urn:server.deleteGenero#xdeleteGenero',
+		'urn:server.deleteGenero#deleteGenero',
 		'rpc',
 		'encode',
 		'return string informando se o Genero foi deletado'
@@ -180,12 +181,20 @@ $server->register('deleteBook',
 		array('book'=>'tns:Book'),
 		array('return'=>'xsd:string'),
 		'urn:server.deleteBook',
-		'urn:server.deleteBook#xdeleteBook',
+		'urn:server.deleteBook#deleteBook',
 		'rpc',
 		'encode',
 		'return string informando se o Book foi deletado'
 );
-
+/* $server->register('gerarNomeArquivo',
+		array('book'=>'tns:Book'),
+		array('return'=>'xsd:string'),
+		'urn:server.gerarNomeArquivo',
+		'urn:server.gerarNomeArquivo#gerarNomeArquivo',
+		'rpc',
+		'encode',
+		'return string informando se o Autor foi deletado'
+); */
 
 /**
  * Registrando as funções referentes ao manter do relacionamento LIVRO LIDO

@@ -16,6 +16,9 @@ BookFlix WebService - PHP
  
  As regras do banco de dados devem ser obecidas.Atributos NOT NULL, por exemplo.
  
- Alterações:
- ----------------
- **Campo 'limite' do tipo de dado Search está depreciado para uso sozinho, somente permitido em conjunto com ou o campo 'nomeAprox' ou 'nomeExato'
+ Alterações e Regras:
+ -----------------
+ *Campo 'limite' do tipo de dado Search está depreciado para uso sozinho, somente permitido 
+  em conjunto com ou o campo 'nomeAprox' ou 'nomeExato'
+ * Os dados que não forem preenchidos, devem ser NULL, explicitamente.
+ * O tipo de imagem para o thumb do livro ( capa ) deverá ser somente *.jpg

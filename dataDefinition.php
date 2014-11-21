@@ -16,14 +16,14 @@
 /** data User
  * define o tipo de dado User, onde o mesmo é um array contendo cinco outros array
  * como mostrado:
- * User -> codUser->"<codigo do Usuário>"
+ * User -> usucodigo->"<codigo do Usuário>"
  *		para a funçao de insertUser esse campo deve ser NULL, pois, o BD gerará automáticamente 
  * 		esse campo
- * User -> nomeUser->"<nome a ser cadastrado>"
- * User -> emailUser->"<email a ser cadastrado>"
- * User -> telefoneUser->"<telefone a ser cadastrado>"
+ * User -> usunome->"<nome a ser cadastrado>"
+ * User -> usuemail->"<email a ser cadastrado>"
+ * User -> usutelefone->"<telefone a ser cadastrado>"
  * 			caso telefoneUser seja null, o cliente deve mandar esse campo com uma string vazia
- * User -> senhaUser->"<senha a ser cadastrado>"
+ * User -> ususenha->"<senha a ser cadastrado>"
  * 
  * */
 $server->wsdl->addComplexType('User',//Nome do novo tipo de dado
@@ -62,16 +62,16 @@ $server->wsdl->addComplexType(
  * define o tipo de dado Book, onde o mesmo é um array contendo sete outros array
  * como mostrado:
  *
- * Book -> codLivro->"<codigo do livro>"
+ * Book -> livcodigo->"<codigo do livro>"
  * 		para a funçao de insertLivro esse campo deve ser NULL, pois, o BD gerará automáticamente 
  * 		esse campo
- * Book -> nomeLivro->"<nome a ser cadastrado>"
- * Book -> codAutor->"<codigo do campo autcodigo da tabela autor do banco de dados, que refere-se ao autor do livro>"
- * Book -> codGenero->"<codigo do campo gencodigo da tabela genero do banco de dados, 
+ * Book -> livnome->"<nome a ser cadastrado>"
+ * Book -> livautcodigo->"<codigo do campo autcodigo da tabela autor do banco de dados, que refere-se ao autor do livro>"
+ * Book -> livgencodigo->"<codigo do campo gencodigo da tabela genero do banco de dados, 
  * 		  que refere-se ao genero do livro>"
- * Book -> anopub->"<ano a ser cadastrado>"
- * Book -> arquivo->"um array de byte codificado em base64 referente ao livro PDF"
- * Book -> thumb->"um array de byte codificado em base64 referente a imagem da capa do livro"
+ * Book -> livanopublicacao->"<ano a ser cadastrado>"
+ * Book -> livrlocalsalvo->"um array de byte codificado em base64 referente ao livro PDF"
+ * Book -> livthumb->"um array de byte codificado em base64 referente a imagem da capa do livro"
  * */
 $server->wsdl->addComplexType('Book',//Nome do novo tipo de dado
 		'complexType',//categoria do tipo de dado
@@ -80,9 +80,9 @@ $server->wsdl->addComplexType('Book',//Nome do novo tipo de dado
 		'',
 		array(
 				'livcodigo'=>array('name'=>'livcodigo','type'=>'xsd:int'),
-				'livnome'=>array('name'=>'livnome','type'=>'xsd:string'),
-				'livautor'=>array('name'=>'livautor','type'=>'xsd:int'),
+				'livautcodigo'=>array('name'=>'livautcodigo','type'=>'xsd:int'),
 				'livgencodigo'=>array('name'=>'livgencodigo','type'=>'xsd:int'),
+				'livnome'=>array('name'=>'livnome','type'=>'xsd:string'),
 				'livanopublicacao'=>array('name'=>'livanopublicacao','type'=>'xsd:string'),
 				'livrlocalsalvo'=>array('name'=>'livrlocalsalvo','type'=>'xsd:string'),
 				'livthumb'=>array('name'=>'livthumb','type'=>'xsd:string'),
@@ -110,10 +110,10 @@ $server->wsdl->addComplexType(
  * define o tipo de dado Genero, onde o mesmo é um array contendo dois outros array
  * como mostrado:
  *
- * Genero -> codGenero->"<codigo do Genero>"
+ * Genero -> gencodigo->"<codigo do Genero>"
  * 		para a funçao de insertGenero esse campo deve ser NULL, pois, o BD gerará automáticamente
  * 		esse campo
- * Genero-> nomeGenero->"<nome a ser cadastrado>"
+ * Genero-> gennome->"<nome a ser cadastrado>"
  *
  * */
 $server->wsdl->addComplexType('Genero',//Nome do novo tipo de dado
@@ -147,10 +147,10 @@ $server->wsdl->addComplexType(
  * define o tipo de dado Autor, onde o mesmo é um array contendo dois outros array
  * como mostrado:
  *
- * Autor -> codAutor->"<codigo do Autor>"
+ * Autor -> autcodigo->"<codigo do Autor>"
  * 		para a funçao de insertGenero esse campo deve ser NULL, pois, o BD gerará automáticamente
  * 		esse campo
- *  Autor-> nomeAutor->"<nome a ser cadastrado>"
+ *  Autor-> autnome->"<nome a ser cadastrado>"
  *
  * */
 $server->wsdl->addComplexType('Autor',//Nome do novo tipo de dado
@@ -219,8 +219,8 @@ $server->wsdl->addComplexType('LivroLido',//Nome do novo tipo de dado
 		'all',//
 		'',
 		array(
-				'boolidusucodigo'=>array('name'=>'usucodigo','type'=>'xsd:int'),
-				'boollidlivcodigo'=>array('name'=>'livcodigo','type'=>'xsd:int'),
+				'boolidusucodigo'=>array('name'=>'boolidusucodigo','type'=>'xsd:int'),
+				'boollidlivcodigo'=>array('name'=>'boolidlivcodigo','type'=>'xsd:int'),
 		)
 );
 /* data LivroLidoArray, mesma funçao que o data LivroLido mas contendo mais de um registro*/

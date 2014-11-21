@@ -19,3 +19,5 @@ INSERT INTO usuario VALUES (NULL,'Giovani','giovani@gmail.com',
 						 'ecpengenharia',NULL);
 
 DESC usuario;
+
+SELECT * FROM livro INNER JOIN genero ON livgencodigo=gencodigo WHERE gencodigo = 2;

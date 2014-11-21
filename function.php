@@ -106,9 +106,14 @@ function deleteUser($user){
  */
 function insertAutor($autor){
 	$nome = $autor['nomeAutor'];
+	$retorno="Autor $nome não cadastrado";
 	$inserir = "INSERT INTO autor VALUES (NULL,'$nome')";
 	$resultado = inserir($inserir);
-	return $resultado;
+	if($resultado)
+		$retorno="Autor $nome cadastrado com sucesso";
+	
+	
+	return $retorno;
 }
 
 /**
@@ -142,8 +147,19 @@ function getAutor($Search){
  */
 function alterAutor($autor){
 	
+	extract($autor);
+	$resultado = "Autor $autnome não alterado";
+	$consulta;
+
+	if(!$autcodigo)
+		$consulta = "UPDATE autor SET autnome = '$autnome' WHERE autnome = '$autnome'";
+	else if($autcodigo)
+		$consulta = "UPDATE autor SET autnome = '$autnome' WHERE autcodigo = $autcodigo";
+	$retorno = alterar($consulta);
+	if($retorno)
+		$resultado = "Alterado $autnome alterado com sucesso";
+	return $resultado;
 	
-	return $recebido;
 }
 /**
  * função usada para deletar um Autor especifico
@@ -152,8 +168,19 @@ function alterAutor($autor){
  * 
  */
 function deleteAutor($autor){
-
-	return $recebido;
+	extract($autor);
+	$resultado = "Autor $autnome não excluído";
+	$consulta;
+	if(!$usucodigo)
+		$consulta = "DELETE FROM autor WHERE autnome = '$autnome'";
+	else if($usucodigo)
+		$consulta = "DELETE FROM autor WHERE autcodigo = $autcodigo";
+	
+	$retorno = alterar($consulta);
+	if($retorno)
+		$resultado = "Autor $autnome excluído com sucesso";
+	return $resultado;
+	
 }
 
 
@@ -167,8 +194,16 @@ function deleteAutor($autor){
  * @return String contendo a informação se o Genero foi realizado com sucesso
  */
 function insertGenero($genero){
+	$nome = $genero['gennome'];
+	$retorno="Autor $nome não cadastrado";
+	$inserir = "INSERT INTO autor VALUES (NULL,'$nome')";
+	$resultado = inserir($inserir);
+	if($resultado)
+		$retorno="Genero $nome cadastrado com sucesso";
 	
-	return $recebido;
+	
+	return $retorno;
+	
 }
 /**
  * função usada para pesquisar o Genero ou retornar um array contendo vários Generos (utilizado normalmente para atualizar o banco local do website ou app)
@@ -201,8 +236,19 @@ function getGenero($Search){
  * @return String confirmando se a alteração foi realizada com sucesso
  */
 function alterGenero($genero){
-
-	return $recebido;
+	extract($genero);
+	$resultado = "Genero $gennome não alterado";
+	$consulta;
+	
+	if(!$gencodigo)
+		$consulta = "UPDATE genero SET gennome = '$gennome' WHERE gennome = '$gennome'";
+	else if($gencodigo)
+		$consulta = "UPDATE autor SET gennome = '$gennome' WHERE gencodigo = $gencodigo";
+	$retorno = alterar($consulta);
+	if($retorno)
+		$resultado = "Alterado $gennome alterado com sucesso";
+	return $resultado;
+	
 }
 /**
  * função usada para deletar um Genero especifico
@@ -210,8 +256,18 @@ function alterGenero($genero){
  * @return String confirmando se o delete foi realizada com sucesso
  */
 function deleteGenero($genero){
-    
-	return $recebido;
+	extract($genero);
+	$resultado = "Genero $gennome não excluído";
+	$consulta;
+	if(!$gencodigo)
+		$consulta = "DELETE FROM genero WHERE gennome = '$gennome'";
+	else if($gencodigo)
+		$consulta = "DELETE FROM genero WHERE gencodigo = $gencodigo";
+	
+	$retorno = alterar($consulta);
+	if($retorno)
+		$resultado = "Genero $gennome excluído com sucesso";
+	return $resultado;
 }
 
 /**
@@ -223,9 +279,22 @@ function deleteGenero($genero){
  * @param array com o formato do dado tipo Book, definido no arquivo dataDefinition.php
  * @return String contendo a informação se o Book foi realizado com sucesso
  */
-function insertBook($book){
-
-	return $recebido;
+function insertBook($Livro){
+	extract($Livro);
+	
+	$nomeArquivo  = gerarNomeArquivo($Livro);
+	//salvarArquivo($nomeARQUIVO, $filePDFBase64, $fileThumbBase64)
+	
+	$inserir = "INSERT INTO book VALUES (NULL,$livautcodigo,$livgencodigo,'$livnome','$livanopublicacao','$nomeArquivo.pdf','$nomeArquivo.jpg')";
+	$resultado = inserir($inserir);
+	$retorno = "Livro $livnome não cadastrado";
+	if($resultado == 1){
+		$retorno = "Livro $livnome cadastrado com sucesso";
+		salvarArquivo($livnome, $livrlocalsalvo, $livthumb);
+	}
+	
+	return $retorno;
+	
 }
 /**
  * função usada para pesquisar o Genero ou retornar um array contendo vários Generos (utilizado normalmente para atualizar o banco local do website ou app)
@@ -246,21 +315,51 @@ function getBook($Search){
 	else
 		$retorno = NULL;
 	//$retorno = array();
+	
 	if($consulta)
 		$retorno = recuperar($consulta);
+	
+	$tamanhoVetor = sizeof($retorno);
+	$posicao = 0;
+	//Codificando os arquivos PDF e JPG de retorno para Base64
+	if($retorno)
+		while($posicao<$tamanhoVetor){
+			$pathPDF = "static/pdf/$retorno[$posicao]['livrlocalsalvo']";
+			$pathThumb = "static/thumb/$retorno[$posicao]['livthumb']";
+			$retorno[$posicao]['livrlocalsalvo'] = encode_decode_base64($pathPDF, "encode");
+			$retorno[$posicao]['livthumb'] = encode_decode_base64($pathThumb, "encode");
+			$posicao=$posicao+1;
+		}
 	
 	return $retorno;
 	
 }
+
+
 
 /**
  * função usada para alterar dados de um Book especifico
  * @param array com o formato do dado tipo Book, definido no arquivo dataDefinition.php
  * @return String confirmando se a alteração foi realizada com sucesso
  */
-function alterBook($book){
-
-	return $recebido;
+function alterBook($Livro){
+	extract($Livro);
+	$resultado = "Livro $livnome não alterado";
+	$consulta;
+	
+	$nomeArquivo = gerarNomeArquivo($Livro);
+	
+	if($livcodigo){
+		$consulta = "UPDATE livro SET livnome = '$livnome',livautcodigo=$livautcodigo,livgencodigo=$livgencodigo,livanopublicacao='$livanopublicacao',";
+		$consulta.= "livrlocalsalvo='$nomeArquivo.pdf',livthumb='$nomeArquivo.jpg' WHERE livcodigo = $livcodigo";
+	}/* else if($gencodigo)
+		$consulta = "UPDATE autor SET gennome = '$gennome' WHERE gencodigo = $livcodigo";*/
+	$retorno = alterar($consulta); 
+	if($retorno){
+		$resultado = "Alterado $livnome alterado com sucesso";
+		salvarArquivo($nomeArquivo, $livrlocalsalvo, $livthumb);
+	}
+	return $resultado;
 }
 
 /**
@@ -268,9 +367,21 @@ function alterBook($book){
  * @param array com o formato do dado tipo Book, definido no arquivo dataDefinition.php
  * @return String confirmando se o delete foi realizada com sucesso
  */
-function deletBook($book){
-
-	return $recebido;
+function deleteBook($book){
+	extract($book);
+	$resultado = "Livro $livnome não excluído";
+	$consulta;
+	if($livcodigo)
+		$consulta = "DELETE FROM livro WHERE livcodigo = $livcodigo";
+	
+	$retorno = alterar($consulta);
+	if($retorno){
+		$resultado = "Livro $livnome excluído com sucesso";
+		$filenome = gerarNomeArquivo($book);
+		deletePDFandThumb($filenome);
+	}
+	return $resultado;
+	
 }
 
 
@@ -281,7 +392,16 @@ function deletBook($book){
  *
  **/
 function insertLivroLido($LivroLido){
+	extract($LivroLivro);
+	$inserir = "INSERT INTO booklido VALUES ($boolidusucodigo,$boolidlivcodigo)";
+	$resultado = inserir($inserir);
+	$retorno = "Relacionamento não cadastrado";
+	if($resultado == 1){
+		$retorno = "Relacionamento cadastrado com sucesso";
+		salvarArquivo($livnome, $livrlocalsalvo, $livthumb);
+	}
 	
+	return $retorno;
 }
 /**
  *função usada para recuper um relacionamento de LIVRO LIDO,existente no banco de dados
@@ -313,10 +433,19 @@ function getLivroLido($LivroLido){
  *
  **/
 function deleteLivroLido($LivroLido){
-
+	extract($LivroLido);
+	$resultado = "Livro lido $boolidlivnome não excluído";
+	$consulta;
+	if($boolidlivcodigo)
+		$consulta = "DELETE FROM booklido WHERE boolidlivcodigo = $boolidlivcodigo and boolidusucodigo = $boolidusucodigo";
+	
+	$retorno = alterar($consulta);
+	if($retorno)
+		$resultado = "Livro livro $boolidlivnome excluído com sucesso";
+	return $resultado;
 }
 /**
- * funcoes genericas para ADD,ALTER,DEL os dados
+ * funcoes genericas para ADD,ALTER,DEL os dados e funcoes usadas internamente por outras funcoes
  * */
 function inserir($sqlCommand){
 	//include ('conexaoBD.php');
@@ -345,7 +474,45 @@ function recuperar($consulta){
 	return $retornoconsulta;
 }
 
+function encode_decode_base64($file,$opcao){
+	$retorno = NULL;
+	if($opcao="decode")
+		$retorno = base64_decode($file);
+	else if ($opcao="encode"){
+		$filename = file("$file",FILE_BINARY);
+		$retorno = base64_encode(implode('', $filename));
+	}
 
+	return $retorno;
+}
 
+function salvarArquivo($filenome,$filePDFBase64,$fileThumbBase64){
+
+	$filePDFdecoded = encode_decode_base64($filePDFBase64, "decode");
+	$fileThumbdecoded = encode_decode_base64($fileThumbBase64, "decode");
+
+	$pathPDF = "static/pdf/$filenome.pdf";
+	$pathThumb = "static/thumb/$filenome.jpg";
+	file_put_contents($pathPDF,$filePDFdecoded);//Cria o arquivo PDF
+	file_put_contents($pathThumb,$fileThumbdecoded);//Cria o arquivo .jpg
+}
+
+function gerarNomeArquivo($book){
+	$retorno = NULL;
+	$bookautcodigo = $book['livautcodigo'];
+	$Search  = array(
+			'codigo'=>$bookautcodigo,
+	);
+	$nomeautor = getAutor($Search);
+	$retorno = str_replace(" ", "-", $nomeautor[0]['autnome']." ".$book['livnome']);
+	return $retorno;
+}
+
+function deletePDFandThumb($filenome){
+	$pathPDF = "static/pdf/$filenome";
+	$pathThumb = "static/thumb/$filenome";
+	unlink($pathPDF);
+	unlink($pathThumb);
+}
 
 ?>

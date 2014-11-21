@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="utf-8"> 
+<title> -- Tópicos Especiais ---</title> 
+<script src="../../static/js/jquery2.min.js"></script>
+<link href="../../static/css/bootstrap-combined.css" rel="stylesheet"> 
+<script src="../../static/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+        
+  <!-- model content -->  
+ 
+    <h3> Editar Contato  </h3> 
+     <form class="contact" enctype="multipart/form-data" method="post">
+	  {% csrf_token %}
+        <fieldset>
+              <div class="modal-body">
+			  <input type='hidden' name='csrfmiddlewaretoken' value='gfetb8lRw17nipkX63jz5HiwcVV35osG' />
+
+                 <ul class="nav nav-list">
+                  <li class="nav-header">Contato</li>
+                  <li>
+                    <input type="text" class="form-control" id="id_nome" placeholder="Nome do contato" name="nome" value="{{contatoedit.nome}}"></li>
+                  <li class="nav-header">Telefone</li>
+                  <li><input type="text" class="form-control" id="id_telefone" placeholder="telefone XXXX-XXXX" name="telefone" value="{{contatoedit.telefone}}">
+                  </li>
+                  <li class="nav-header">Data de Nascimento</li>
+                  <li>
+                    <input type="text" class="form-control" id="id_dtnasc" placeholder="Ano-Mês-Dia" name="dtnasc" value="{{contatoedit.dtnasc|date:"d/m/Y"}}">
+                  </li>
+                  <li class="nav-header">Foto</li>
+                  <li>
+					Atual : {{contatoedit.foto}}<br>
+                    <input id="id_foto" name="foto" type="file" >
+                    <p class="help-block">*.jpg,*.jpeg,*.png</p>
+                  </li>
+
+                </ul> 
+              </div>
+        </fieldset>
+		 <div class="modal-footer">
+           <button class="btn btn-success" id="submit">Edit</button>
+           <a href="/contato/listar" class="btn" data-dismiss="modal">Cancel</a>
+		 </div>
+
+      </form>
+    
+    
+  <!-- fim model --> 
+
+ </div>
+
+  </body>
+</html>
